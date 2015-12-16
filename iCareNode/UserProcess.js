@@ -5,21 +5,28 @@
 var UserModel = require('./UserModel');
 var multiparty = require('multiparty');
 var fs = require('fs');
-var form = new multiparty.Form();
 
-insertUser=function(request,callback)
+insertUser=function(request,callBack)
 {
     var user = new UserModel();
     user.name = request.body.name;
     user.password = request.body.password;
-
+    user.category=request.body.category;
     user.save(function(err){
         if(err)
         {
-            callback(err)
+            var responseJson = JSON.stringify({
+                "error_message":err.toString(),
+                "error_code":100
+            });
+            callBack(responseJson);
         }
         else{
-            callback('Successfuly created User '+user.name);
+            var responseJson = JSON.stringify({
+                "error_message":"Successfuly created User",
+                "error_code":0
+            });
+            callBack(responseJson);
         }
     });
 
@@ -27,8 +34,9 @@ insertUser=function(request,callback)
 
 insertUserWithMultipart=function (request,callBack) {
 
+    var form = new multiparty.Form();
     var user = new UserModel();
-
+    var responseJson;
     form.on('file', function(name,file){
             user.photo = fs.readFileSync(file.path);
 
@@ -41,14 +49,21 @@ insertUserWithMultipart=function (request,callBack) {
     form.on("close", function() {
 
         user.save(function (err) {
-            if (err) {
-                console.log("Error while saving user %s",err.toString())
-                callBack('Error while creating user ' + err.toString())
+            if(err)
+            {
+                 responseJson = JSON.stringify({
+                    "error_message":err.toString(),
+                    "error_code":400
+                });
             }
-            else {
-                console.log("Successfuly saved user")
-                callBack('Successfully create user '+user.name)
+            else{
+                 responseJson = JSON.stringify({
+                    "error_message":"Successfuly created User",
+                    "error_code":0
+                });
+
             }
+            callBack(responseJson);
         });
 
     });
@@ -66,18 +81,83 @@ insertUserWithMultipart=function (request,callBack) {
 getAllUsers=function (callBack)
 {
     UserModel.find(function(err,users){
+
+
         if(err)
         {
-            console.log("Error while retrieving users"+err)
+            var responseJson = JSON.stringify({
+                "error_message":err.toString(),
+                "error_code":300
+            });
+            callBack(responseJson);
         }
-        else
-        {
-            console.log("Users %s",users.toString())
+        else{
             callBack(users)
         }
 
+
     });
 }
+
+
+loginUser=function (request,callBack)
+{
+    var responseJson;
+    var user = new UserModel();
+    user.name = request.body.name;
+    user.password = request.body.password;
+    user.category = request.body.category;
+
+    UserModel.find({ "name": user.name } ,function(err,users){
+
+        if(err)
+        {
+             responseJson = JSON.stringify({
+                "error_message":err.toString(),
+                "error_code":600
+            });
+            callBack(responseJson);
+        }
+        else if (users.count > 0){
+            if(users[0].password==user.password)
+            {
+                if(users[0].category==user.category)
+                {
+                    responseJson= JSON.stringify({
+                        "error_message":"Successfuly logged in User",
+                        "error_code":0
+                    });
+                }
+                else
+                {
+                    responseJson= JSON.stringify({
+                        "error_message":"Cannot log in as "+user.category,
+                        "error_code":700
+                    });
+                }
+            }
+            else
+            {
+                responseJson= JSON.stringify({
+                    "error_message":"Incorrect login credentials",
+                    "error_code":800
+                });
+            }
+
+            callBack(responseJson);
+        }
+        else
+        {
+            responseJson = JSON.stringify({
+                "error_message":"No users present",
+                "error_code":900
+            });
+            callBack(responseJson);
+        }
+    });
+}
+
 module.exports.insertUser=insertUser
 module.exports.insertUserWithMultipart=insertUserWithMultipart
 module.exports.getAllUsers=getAllUsers
+module.exports.loginUser=loginUser

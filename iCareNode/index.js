@@ -6,9 +6,9 @@ mongoose.connect('mongodb://localhost:27017/icareDB');
 
 var bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json({ extended: true }));
-//app.use(bodyParser.raw({extended:true}))
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.raw({extended:true}))
 
 var port = 8084;
 
@@ -67,15 +67,15 @@ router.post('/donatecreate', function(request,response){
 
 
 router.post('/createUser', function(request,response){
-    console.log(request.body.name)
+
     if(request.get('Content-Type').indexOf('json') !== -1) {
-        console.log(request.body.name)
         userProcess.insertUser(request,function(data){
             response.send(data)
         });
     }
     else if(request.get('Content-Type').indexOf('multipart') !== -1)
     {
+        console.log('multipart request'+request)
         userProcess.insertUserWithMultipart(request,function(data){
             response.send(data)
         });
@@ -90,12 +90,12 @@ router.get('/getAllUsers', function(request,response){
     });
 });
 
-//router.post('/loginUser',function(request,response){
-//    console.log("getAllUsers")
-//    userProcess.loginUser(function(data){
-//        response.send(data)
-//    });
-//});
+router.post('/loginUser',function(request,response){
+    userProcess.loginUser(request,function(data){
+        console.log(data)
+        response.send(data)
+    });
+});
 
 app.use('/', router);
 app.listen(port);

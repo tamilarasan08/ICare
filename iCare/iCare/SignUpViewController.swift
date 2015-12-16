@@ -17,7 +17,8 @@ class SignUpViewController: UIViewController ,UIImagePickerControllerDelegate,UI
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
-    var imagePath:NSString = ""
+    var imageData:NSData!
+    var imagePath:NSURL!
     @IBAction func uploadPhotoAction(sender: UIButton) {
         
         picker!.allowsEditing = false
@@ -28,7 +29,7 @@ class SignUpViewController: UIViewController ,UIImagePickerControllerDelegate,UI
     
     var picker:UIImagePickerController?=UIImagePickerController()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         picker?.delegate=self
@@ -44,10 +45,10 @@ class SignUpViewController: UIViewController ,UIImagePickerControllerDelegate,UI
         photoImageView.contentMode = .ScaleAspectFit
         photoImageView.image = chosenImage
         dismissViewControllerAnimated(true, completion: nil)
-        var imageURL:NSURL=info[UIImagePickerControllerReferenceURL] as NSURL
-        imagePath=imageURL.path!
+        imageData=UIImagePNGRepresentation(chosenImage)
+        imagePath=info[UIImagePickerControllerReferenceURL] as NSURL
     }
-
+    
     
     
     @IBAction func submitButtonAction(sender: UIButton) {
@@ -58,24 +59,35 @@ class SignUpViewController: UIViewController ,UIImagePickerControllerDelegate,UI
         if(password==confirmPassword)
         {
             var nl:NetworkLayer=NetworkLayer()
-            var returnData:NSData=nl.connectToURLWithMultipartData(signUpURL, jsonData: ["user_name":userName,"password":password], multipartFiles: [userName:imagePath])
+            var returnData:NSData!=nl.connectToURL(signUpURL, postBody: ["name":userName,"password":password,"category":"user"], multipartFiles:[imagePath:imageData])// [String: String]())!
             var error:NSError? = nil
-            if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(returnData, options: nil, error:&error) {
-                if let dict = jsonObject as? NSDictionary {
-                    println(dict)
-                    var status: String?=dict.objectForKey("status") as? String
-                    if (status=="success")
-                    {
-                        println("show admin screen")
+            if returnData != nil
+            {
+                if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(returnData, options: nil, error:&error) {
+                    if let dict = jsonObject as? NSDictionary {
+                        println(dict)
+                        var error_code: NSNumber?=dict.objectForKey("error_code") as? NSNumber
+                        var message:NSString=dict.objectForKey("error_message") as NSString;
+                        if (error_code?.integerValue==0)
+                        {
+                            println("show donator screen");
+                        }
+                        else
+                        {
+                            var alert:UIAlertView=UIAlertView(title: "Error", message:message , delegate: nil, cancelButtonTitle: "OK")
+                            alert.show()
+                        }
+                        
                     }
-                    else
-                    {
-                        println("show donator screen")
-                    }
-                    
+                } else {
+                    println("Could not parse JSON: \(error!)")
                 }
-            } else {
-                println("Could not parse JSON: \(error!)")
+                
+            }
+            else
+            {
+                var alert:UIAlertView=UIAlertView(title: "Error", message: "Error while connecting to server", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
             }
             
         }
@@ -84,14 +96,18 @@ class SignUpViewController: UIViewController ,UIImagePickerControllerDelegate,UI
             var alert:UIAlertView=UIAlertView(title: "Error", message: "The passwords do not match", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
-
+        
         
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event!)
     }
     
     

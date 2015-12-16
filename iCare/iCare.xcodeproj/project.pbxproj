@@ -16,6 +16,7 @@
 		2F413F181C19679300409679 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F413F171C19679300409679 /* NetworkLayer.swift */; };
 		2F413F1A1C19A4E400409679 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F413F191C19A4E400409679 /* SignUpViewController.swift */; };
 		2F413F1D1C19B82400409679 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F413F1C1C19B82400409679 /* MobileCoreServices.framework */; };
+		2F41409B1C21919000409679 /* DonateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41409A1C21919000409679 /* DonateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		2F413F171C19679300409679 /* NetworkLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		2F413F191C19A4E400409679 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2F413F1C1C19B82400409679 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		2F41409A1C21919000409679 /* DonateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				2F413EF51C18323600409679 /* AppDelegate.swift */,
 				2F413EF71C18323700409679 /* LoginViewController.swift */,
+				2F41409A1C21919000409679 /* DonateViewController.swift */,
 				2F413F191C19A4E400409679 /* SignUpViewController.swift */,
 				2F413F171C19679300409679 /* NetworkLayer.swift */,
 				2F413EF91C18323700409679 /* Main.storyboard */,
@@ -226,6 +229,7 @@
 				2F413F1A1C19A4E400409679 /* SignUpViewController.swift in Sources */,
 				2F413EF81C18323700409679 /* LoginViewController.swift in Sources */,
 				2F413EF61C18323600409679 /* AppDelegate.swift in Sources */,
+				2F41409B1C21919000409679 /* DonateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

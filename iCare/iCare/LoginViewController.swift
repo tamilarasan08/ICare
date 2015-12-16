@@ -9,8 +9,8 @@
 import UIKit
 
 
-let loginRequestURL=""
-let signUpURL=""
+let loginRequestURL="http://localhost:8084/loginUser"
+let signUpURL="http://localhost:8084/createUser"
 
 class LoginViewController: UIViewController {
 
@@ -22,26 +22,52 @@ class LoginViewController: UIViewController {
         var password=passwordTextField.text;
         var isAdmin=isAdminSwitch.on;
         var nl:NetworkLayer=NetworkLayer()
-        var returnData:NSData=nl.connectToURL(loginRequestURL, postBody:["user_name":userName,"password":password,"isAdmin":isAdmin])
+        var category:NSString;
+        if isAdmin
+        {
+          category="admin";
+        }
+        else
+        {
+            category="user"
+        }
+        var returnData:NSData!=nl.connectToURL(loginRequestURL, postBody:["name":userName,"password":password,"category":category],multipartFiles:[NSURL: NSData]())!
+        if((returnData) != nil)
+        {
         var error:NSError? = nil
         if let jsonObject: AnyObject = NSJSONSerialization.JSONObjectWithData(returnData, options: nil, error:&error) {
             if let dict = jsonObject as? NSDictionary {
                 println(dict)
-                var status: String?=dict.objectForKey("status") as? String
-                if (status=="success")
+                var error_code: NSNumber?=dict.objectForKey("error_code") as? NSNumber
+                var message:NSString=dict.objectForKey("error_message") as NSString;
+                if (error_code?.integerValue==0)
                 {
-                    println("show admin screen")
+                    if(isAdmin)
+                    {
+                        println("show admin screen")
+                    }
+                    else
+                    {
+                        println("show donator screen")
+                    }
+                    
                 }
                 else
                 {
-                    println("show donator screen")
+                    var alert:UIAlertView=UIAlertView(title: "Error", message:message , delegate: nil, cancelButtonTitle: "OK")
+                    alert.show()
                 }
-                
             }
         } else {
             println("Could not parse JSON: \(error!)")
         }
-        
+        }
+        else
+        {
+            var alert:UIAlertView=UIAlertView(title: "Error", message:"Error while connecting to service" , delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+
+        }
         
         
     }
@@ -54,7 +80,10 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event!)
+    }
 
 }
 
