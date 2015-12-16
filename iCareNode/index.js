@@ -10,10 +10,18 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.raw({extended:true}))
 
+
+var multer  = require('multer');
+
+
 var port = 8084;
 
 var DonateModel = require('./DonateModel');
+
+var DonateOperation = require('./DonateOperation');
+
 var userProcess=require('./UserProcess')
+
 
 
 
@@ -40,7 +48,12 @@ router.post('/', function(request,response){
     response.json('Test');
 });
 
+//router.post('/donatecreate', files.any(),function(request,response)
 router.post('/donatecreate', function(request,response){
+
+
+     DonateOperation.donateInsert(request,function(res){
+        response.send(res);
 
     var donate = new DonateModel();
     donate.itemName = request.body.itemName;
@@ -58,10 +71,31 @@ router.post('/donatecreate', function(request,response){
     else{
         response.send(donate);
     }
+
     });
-    console.log(request.body);
-    console.log(request.headers);
-    //response.json(donate);
+
+
+});});
+
+router.get('/donatecreate/itemName/:name', function(request,response){
+
+    DonateOperation.donateSearchRecords(request,function(res){
+        response.send(res);
+    });
+
+
+});
+
+
+router.get('/donatecreate/itemName/:name/fieldID/:field', function(request,response){
+
+    DonateOperation.donateSearch(request,function(res){
+        //response.send(res);
+       // response.contentType(res.contentType);
+        response.send(res.data);
+    });
+
+
 });
 
 
