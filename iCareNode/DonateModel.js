@@ -6,7 +6,8 @@ var mongoose = require("mongoose");
 var  Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    userID : String
+    userID : String,
+    userName : String
 });
 
 var donateSchema = new Schema({

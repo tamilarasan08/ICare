@@ -19,6 +19,16 @@ var donateInsert = function(request, callBack){
         donate.itemCategory = request.body.itemCategory;
         donate.itemsFor = request.body.itemsFor;
         donate.location = request.body.location;
+        var userDetail = request.body.user;
+
+        for (key in userDetail){
+            console.log(key);
+            console.log(userDetail[key]);
+            donate.user = userDetail;//{userID:"test",userName:"t"};
+           // donate.user[key] = userDetail[key];
+
+        }
+
 
         donate.save(function(err){
             if(err)
@@ -37,45 +47,38 @@ var donateInsert = function(request, callBack){
         form.parse(request);
         form.on('field', function(name , value)
         {
+
+            if(name == 'user'){
+
+                //Object Type
+                //donate.user = {userID : value};
+
+                var userDict = JSON.parse(value);
+                for (key in userDict)
+                {
+                    var v = userDict[key];
+                    console.log(v);
+                }
+
+                // Array types
+                //donate.user.push({ userID: value });
+            }
+            else
+            {
                 donate[name] = value;
+            }
         });
         form.on('file',function(name,value){
             var tmpPath = value.path;
-            var target_path = './uploads/' + value.originalFilename;
-            donate.itemImage.data = fs.readFileSync(tmpPath);
-            donate.itemImage.contentType = 'image/png';
-            donate.user.userID = request.get(user);
-            donate.save(function(err){
-                if (err)
-                {
-                    console.log('error');
-                }
-                else
-                {
-                    console.log('success');
-                }
+            //var target_path = './uploads/' + value.originalFilename;
+            //donate.itemImage.data = fs.readFileSync(tmpPath);
+            //donate.itemImage.contentType = 'image/png';
 
-            });
-            //fs.renameSync(tmpPath, target_path, function(err) {
-            //    if(err)
-            //    {
-            //        console.error(err.stack);
-            //    }
-            //    else
-            //    {
-            //        //saving image to db
-            //        donate.itemImage.data = fs.readFileSync(target_path);
-            //        donate.save(function(err) {
-            //            if (err) {
-            //                callBack(err);
-            //            }
-            //        });
-            //    }
-            //});
         });
 
         form.on('close',function(){
-           // callBack('okay');
+            // callBack('okay');
+            //donate.user.push({ userID: mynameis });
             donate.save(function(err){
                 if(err)
                 {
