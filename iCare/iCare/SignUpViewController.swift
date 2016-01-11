@@ -71,6 +71,9 @@ class SignUpViewController: UIViewController ,UIImagePickerControllerDelegate,UI
                         if (error_code?.integerValue==0)
                         {
                             println("show donator screen");
+                            var userDonations:DonateViewController=DonateViewController()
+                            userDonations.username=userName
+                            self.navigationController!.pushViewController(userDonations, animated: true)
                         }
                         else
                         {

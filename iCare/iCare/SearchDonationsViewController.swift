@@ -10,11 +10,8 @@ import UIKit
 
 
 
-class DonateViewController: UIViewController {
-    
-    var username:String = ""
-    
-    func getUserDetails
+class SearchDonationViewController: UIViewController {
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

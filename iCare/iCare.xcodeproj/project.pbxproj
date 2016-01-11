@@ -17,6 +17,9 @@
 		2F413F1A1C19A4E400409679 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F413F191C19A4E400409679 /* SignUpViewController.swift */; };
 		2F413F1D1C19B82400409679 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F413F1C1C19B82400409679 /* MobileCoreServices.framework */; };
 		2F41409B1C21919000409679 /* DonateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41409A1C21919000409679 /* DonateViewController.swift */; };
+		2F41409F1C22B77500409679 /* CreateDonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41409C1C22B77500409679 /* CreateDonationViewController.swift */; };
+		2F4140A01C22B77500409679 /* DonationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41409D1C22B77500409679 /* DonationListViewController.swift */; };
+		2F4140A11C22B77500409679 /* SearchDonationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F41409E1C22B77500409679 /* SearchDonationsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		2F413F191C19A4E400409679 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2F413F1C1C19B82400409679 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2F41409A1C21919000409679 /* DonateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonateViewController.swift; sourceTree = "<group>"; };
+		2F41409C1C22B77500409679 /* CreateDonationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDonationViewController.swift; sourceTree = "<group>"; };
+		2F41409D1C22B77500409679 /* DonationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationListViewController.swift; sourceTree = "<group>"; };
+		2F41409E1C22B77500409679 /* SearchDonationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDonationsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,9 @@
 				2F413EF71C18323700409679 /* LoginViewController.swift */,
 				2F41409A1C21919000409679 /* DonateViewController.swift */,
 				2F413F191C19A4E400409679 /* SignUpViewController.swift */,
+				2F41409C1C22B77500409679 /* CreateDonationViewController.swift */,
+				2F41409D1C22B77500409679 /* DonationListViewController.swift */,
+				2F41409E1C22B77500409679 /* SearchDonationsViewController.swift */,
 				2F413F171C19679300409679 /* NetworkLayer.swift */,
 				2F413EF91C18323700409679 /* Main.storyboard */,
 				2F413EFC1C18323700409679 /* Images.xcassets */,
@@ -227,8 +236,11 @@
 			files = (
 				2F413F181C19679300409679 /* NetworkLayer.swift in Sources */,
 				2F413F1A1C19A4E400409679 /* SignUpViewController.swift in Sources */,
+				2F4140A11C22B77500409679 /* SearchDonationsViewController.swift in Sources */,
 				2F413EF81C18323700409679 /* LoginViewController.swift in Sources */,
 				2F413EF61C18323600409679 /* AppDelegate.swift in Sources */,
+				2F4140A01C22B77500409679 /* DonationListViewController.swift in Sources */,
+				2F41409F1C22B77500409679 /* CreateDonationViewController.swift in Sources */,
 				2F41409B1C21919000409679 /* DonateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,6 +435,7 @@
 				2F413F111C18323700409679 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F413F121C18323700409679 /* Build configuration list for PBXNativeTarget "iCareTests" */ = {
 			isa = XCConfigurationList;
@@ -431,6 +444,7 @@
 				2F413F141C18323700409679 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

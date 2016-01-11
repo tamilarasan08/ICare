@@ -240,12 +240,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iB6-NT-C3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="970" y="118"/>
+            <point key="canvasLocation" x="759" y="118"/>
         </scene>
-        <!--View Controller-->
+        <!--Search Donation View Controller-->
         <scene sceneID="NZq-5u-yaz">
             <objects>
-                <viewController id="RT1-xc-4RR" sceneMemberID="viewController">
+                <viewController id="RT1-xc-4RR" customClass="SearchDonationViewController" customModule="iCare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ycd-DS-Zxc"/>
                         <viewControllerLayoutGuide type="bottom" id="ZdX-1Q-X9b"/>
@@ -301,10 +301,10 @@
             </objects>
             <point key="canvasLocation" x="759" y="804"/>
         </scene>
-        <!--View Controller-->
+        <!--Donation List View Controller-->
         <scene sceneID="P8B-5e-Dnd">
             <objects>
-                <viewController id="JBZ-G4-NsT" sceneMemberID="viewController">
+                <viewController id="JBZ-G4-NsT" customClass="DonationListViewController" customModule="iCare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ebF-tZ-kN2"/>
                         <viewControllerLayoutGuide type="bottom" id="Wh9-Zd-IS5"/>
@@ -331,10 +331,10 @@
             </objects>
             <point key="canvasLocation" x="1391" y="806"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Donation View Controller-->
         <scene sceneID="aLz-eF-GaB">
             <objects>
-                <viewController id="Pel-2R-Duk" sceneMemberID="viewController">
+                <viewController id="Pel-2R-Duk" customClass="CreateDonationViewController" customModule="iCare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s7J-oT-dx8"/>
                         <viewControllerLayoutGuide type="bottom" id="256-SO-AAR"/>
@@ -421,7 +421,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="89z-vK-I0S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1709" y="123"/>
+            <point key="canvasLocation" x="1391" y="129"/>
         </scene>
     </scenes>
 </document>
